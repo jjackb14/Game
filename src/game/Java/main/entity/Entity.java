@@ -16,9 +16,9 @@ public class Entity {
     /** The current direction of the entity. */
     private String direction;
     /** Counter of sprites in the game. */
-    public int spriteCounter;
+    private int spriteCounter;
     /** Number of the sprite. */
-    public int spriteNum;
+    private int spriteNum;
 
     /**
      * Creates a new Entity.
@@ -26,6 +26,18 @@ public class Entity {
     public Entity() {
         setSpriteCounter(0);
         setSpriteNum(1);
+    }
+
+    public void entityUpdate() {
+        spriteCounter++;
+        if (spriteCounter > 12) {
+            if (spriteNum == 1) {
+                spriteNum = 2;
+            } else if (spriteNum == 2) {
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
     }
 
     /**

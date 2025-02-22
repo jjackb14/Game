@@ -63,15 +63,7 @@ public class Player extends Entity {
                 setX(getX() + getSpeed());
             }
 
-            spriteCounter++;
-            if (spriteCounter > 12) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
-            }
+            entityUpdate();
         }
     }
 
@@ -87,34 +79,34 @@ public class Player extends Entity {
 
         switch (getDirection()) {
             case "up":
-                if (spriteNum == 1) {
+                if (getSpriteNum() == 1) {
                     image = getUp1();
                 }
-                if (spriteNum == 2) {
+                if (getSpriteNum() == 2) {
                     image = getUp2();
                 }
                 break;
             case "down":
-                if (spriteNum == 1) {
+                if (getSpriteNum() == 1) {
                     image = getDown1();
                 }
-                if (spriteNum == 2) {
+                if (getSpriteNum() == 2) {
                     image = getDown2();
                 }
                 break;
             case "left":
-                if (spriteNum == 1) {
+                if (getSpriteNum() == 1) {
                     image = getLeft1();
                 }
-                if (spriteNum == 2) {
+                if (getSpriteNum() == 2) {
                     image = getLeft2();
                 }
                 break;
             case "right":
-                if (spriteNum == 1) {
+                if (getSpriteNum() == 1) {
                     image = getRight1();
                 }
-                if (spriteNum == 2) {
+                if (getSpriteNum() == 2) {
                     image = getRight2();
                 }
                 break;
