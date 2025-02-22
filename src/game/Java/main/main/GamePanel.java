@@ -1,6 +1,7 @@
 package main.main;
 
 import main.entity.Player;
+import main.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +35,8 @@ public class GamePanel extends JPanel implements Runnable {
     /** FPS the game will run at. */
     private int FPS = 60;
 
+    /** An instance of the tile manager. */
+    TileManager tileManager = new TileManager(this);
     /** A main.main.KeyHandler to handle the input from the keyboard. */
     private KeyHandler keyH = new KeyHandler();
     /** The thread to run the game and maintain the clock. */
@@ -115,6 +118,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+
+        tileManager.draw(g2);
 
         player.draw(g2);
 
