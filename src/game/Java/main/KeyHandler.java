@@ -1,3 +1,5 @@
+package main;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Objects;
@@ -121,7 +123,7 @@ public class KeyHandler implements KeyListener {
 
     @Override
     public String toString() {
-        return "KeyHandler{" +
+        return "main.KeyHandler{" +
                 "upPressed=" + upPressed +
                 ", downPressed=" + downPressed +
                 ", leftPressed=" + leftPressed +

@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
@@ -30,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     /** FPS the game will run at. */
     private int FPS = 120;
 
-    /** A KeyHandler to handle the input from the keyboard. */
+    /** A main.KeyHandler to handle the input from the keyboard. */
     private KeyHandler keyH = new KeyHandler();
     /** The thread to run the game and maintain the clock. */
     private Thread gameThread;
@@ -43,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
     private int playerSpeed = 2;
 
     /**
-     * Constructs a new GamePanel for use running the game.
+     * Constructs a new main.GamePanel for use running the game.
      */
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -222,7 +224,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     @Override
     public String toString() {
-        return "GamePanel{" +
+        return "main.GamePanel{" +
                 "originalTileSize=" + originalTileSize +
                 ", scale=" + scale +
                 ", tileSize=" + tileSize +
