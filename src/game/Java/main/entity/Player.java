@@ -44,6 +44,8 @@ public class Player extends Entity {
         screenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2);
         screenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);
 
+        setSolidArea(new Rectangle(8, 16, gp.getTileSize() - 16, gp.getTileSize() - 16));
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -62,18 +64,32 @@ public class Player extends Entity {
      * Updates components on the screen.
      */
     public void update() {
+        boolean moving = false;
+
         if (keyH.isUpPressed()) {
             setDirection("up");
-            setWorldY(getWorldY() - getSpeed());
+            moving = true;
         } else if (keyH.isDownPressed()) {
             setDirection("down");
-            setWorldY(getWorldY() + getSpeed());
+            moving = true;
         } else if (keyH.isLeftPressed()) {
             setDirection("left");
-            setWorldX(getWorldX() - getSpeed());
+            moving = true;
         } else if (keyH.isRightPressed()) {
             setDirection("right");
-            setWorldX(getWorldX() + getSpeed());
+            moving = true;
+        }
+
+        setCollisionOn(false);
+        gp.getcChecker().checkTile(this);
+
+        if (moving && !isCollisionOn()) {
+            switch (getDirection()) {
+                case "up": setWorldY(getWorldY() - getSpeed()); break;
+                case "down": setWorldY(getWorldY() + getSpeed()); break;
+                case "left": setWorldX(getWorldX() - getSpeed()); break;
+                case "right": setWorldX(getWorldX() + getSpeed()); break;
+            }
         }
 
         entityUpdate();

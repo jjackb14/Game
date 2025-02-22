@@ -52,6 +52,8 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread gameThread;
     /** An instance of the player in the game. */
     private Player player = new Player(this, keyH);
+    /** An instance of the CollisionChecker object. */
+    private CollisionChecker cChecker = new CollisionChecker(this);
 
     /**
      * Constructs a new main.main.GamePanel for use running the game.
@@ -219,17 +221,25 @@ public class GamePanel extends JPanel implements Runnable {
         this.tileManager = tileManager;
     }
 
+    public CollisionChecker getcChecker() {
+        return cChecker;
+    }
+
+    public void setcChecker(CollisionChecker cChecker) {
+        this.cChecker = cChecker;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GamePanel gamePanel = (GamePanel) o;
-        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getMaxWorldCol() == gamePanel.getMaxWorldCol() && getMaxWorldRow() == gamePanel.getMaxWorldRow() && getWorldWidth() == gamePanel.getWorldWidth() && getWorldHeight() == gamePanel.getWorldHeight() && getFPS() == gamePanel.getFPS() && Objects.equals(getTileManager(), gamePanel.getTileManager()) && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread()) && Objects.equals(getPlayer(), gamePanel.getPlayer());
+        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getMaxWorldCol() == gamePanel.getMaxWorldCol() && getMaxWorldRow() == gamePanel.getMaxWorldRow() && getWorldWidth() == gamePanel.getWorldWidth() && getWorldHeight() == gamePanel.getWorldHeight() && getFPS() == gamePanel.getFPS() && Objects.equals(getTileManager(), gamePanel.getTileManager()) && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread()) && Objects.equals(getPlayer(), gamePanel.getPlayer()) && Objects.equals(getcChecker(), gamePanel.getcChecker());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getMaxWorldCol(), getMaxWorldRow(), getWorldWidth(), getWorldHeight(), getFPS(), getTileManager(), getKeyH(), getGameThread(), getPlayer());
+        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getMaxWorldCol(), getMaxWorldRow(), getWorldWidth(), getWorldHeight(), getFPS(), getTileManager(), getKeyH(), getGameThread(), getPlayer(), getcChecker());
     }
 
     @Override
@@ -251,6 +261,7 @@ public class GamePanel extends JPanel implements Runnable {
                 ", keyH=" + keyH +
                 ", gameThread=" + gameThread +
                 ", player=" + player +
+                ", cChecker=" + cChecker +
                 ", ui=" + ui +
                 ", listenerList=" + listenerList +
                 ", accessibleContext=" + accessibleContext +

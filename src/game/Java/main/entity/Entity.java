@@ -1,5 +1,6 @@
 package main.entity;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -19,6 +20,10 @@ public class Entity {
     private int spriteCounter;
     /** Number of the sprite. */
     private int spriteNum;
+    /** A solid rectangle to represent the collision area of an entity. */
+    private Rectangle solidArea;
+    /** Flag for if collisions are on for an entity. */
+    private boolean collisionOn;
 
     /**
      * Creates a new Entity.
@@ -146,28 +151,6 @@ public class Entity {
         this.spriteCounter = spriteCounter;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Entity entity = (Entity) o;
-        return getWorldX() == entity.getWorldY() && getWorldY() == entity.getWorldY() && getSpeed() == entity.getSpeed();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getWorldX(), getWorldY(), getSpeed());
-    }
-
-    @Override
-    public String toString() {
-        return "Entity{" +
-                "worldX=" + worldX +
-                ", worldY=" + worldY +
-                ", speed=" + speed +
-                '}';
-    }
-
     public int getSpriteNum() {
         return spriteNum;
     }
@@ -182,5 +165,56 @@ public class Entity {
 
     public void setWorldX(int worldX) {
         this.worldX = worldX;
+    }
+
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
+
+    public void setSolidArea(Rectangle solidArea) {
+        this.solidArea = solidArea;
+    }
+
+    public boolean isCollisionOn() {
+        return collisionOn;
+    }
+
+    public void setCollisionOn(boolean collisionOn) {
+        this.collisionOn = collisionOn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Entity entity = (Entity) o;
+        return getWorldX() == entity.getWorldX() && getWorldY() == entity.getWorldY() && getSpeed() == entity.getSpeed() && getSpriteCounter() == entity.getSpriteCounter() && getSpriteNum() == entity.getSpriteNum() && isCollisionOn() == entity.isCollisionOn() && Objects.equals(getUp1(), entity.getUp1()) && Objects.equals(getUp2(), entity.getUp2()) && Objects.equals(getDown1(), entity.getDown1()) && Objects.equals(getDown2(), entity.getDown2()) && Objects.equals(getLeft1(), entity.getLeft1()) && Objects.equals(getLeft2(), entity.getLeft2()) && Objects.equals(getRight1(), entity.getRight1()) && Objects.equals(getRight2(), entity.getRight2()) && Objects.equals(getDirection(), entity.getDirection()) && Objects.equals(getSolidArea(), entity.getSolidArea());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getWorldX(), getWorldY(), getSpeed(), getUp1(), getUp2(), getDown1(), getDown2(), getLeft1(), getLeft2(), getRight1(), getRight2(), getDirection(), getSpriteCounter(), getSpriteNum(), getSolidArea(), isCollisionOn());
+    }
+
+    @Override
+    public String toString() {
+        return "Entity{" +
+                "worldX=" + worldX +
+                ", worldY=" + worldY +
+                ", speed=" + speed +
+                ", up1=" + up1 +
+                ", up2=" + up2 +
+                ", down1=" + down1 +
+                ", down2=" + down2 +
+                ", left1=" + left1 +
+                ", left2=" + left2 +
+                ", right1=" + right1 +
+                ", right2=" + right2 +
+                ", direction='" + direction + '\'' +
+                ", spriteCounter=" + spriteCounter +
+                ", spriteNum=" + spriteNum +
+                ", solidArea=" + solidArea +
+                ", collisionOn=" + collisionOn +
+                '}';
     }
 }
