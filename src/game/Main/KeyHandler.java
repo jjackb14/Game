@@ -1,5 +1,6 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Objects;
 
 public class KeyHandler implements KeyListener {
     /** Holds if up has been pressed. */
@@ -103,5 +104,28 @@ public class KeyHandler implements KeyListener {
 
     public void setRightPressed(boolean rightPressed) {
         this.rightPressed = rightPressed;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        KeyHandler that = (KeyHandler) o;
+        return isUpPressed() == that.isUpPressed() && isDownPressed() == that.isDownPressed() && isLeftPressed() == that.isLeftPressed() && isRightPressed() == that.isRightPressed();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(isUpPressed(), isDownPressed(), isLeftPressed(), isRightPressed());
+    }
+
+    @Override
+    public String toString() {
+        return "KeyHandler{" +
+                "upPressed=" + upPressed +
+                ", downPressed=" + downPressed +
+                ", leftPressed=" + leftPressed +
+                ", rightPressed=" + rightPressed +
+                '}';
     }
 }

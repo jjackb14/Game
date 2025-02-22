@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Objects;
 
 /**
  * The physical UI of the game. Will handle tile sizes, resolution, etc.
@@ -204,5 +205,40 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setPlayerSpeed(int playerSpeed) {
         this.playerSpeed = playerSpeed;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GamePanel gamePanel = (GamePanel) o;
+        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getFPS() == gamePanel.getFPS() && getPlayerX() == gamePanel.getPlayerX() && getPlayerY() == gamePanel.getPlayerY() && getPlayerSpeed() == gamePanel.getPlayerSpeed() && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getFPS(), getKeyH(), getGameThread(), getPlayerX(), getPlayerY(), getPlayerSpeed());
+    }
+
+    @Override
+    public String toString() {
+        return "GamePanel{" +
+                "originalTileSize=" + originalTileSize +
+                ", scale=" + scale +
+                ", tileSize=" + tileSize +
+                ", maxScreenCols=" + maxScreenCols +
+                ", maxScreenRows=" + maxScreenRows +
+                ", screenWidth=" + screenWidth +
+                ", screenHeight=" + screenHeight +
+                ", FPS=" + FPS +
+                ", keyH=" + keyH +
+                ", gameThread=" + gameThread +
+                ", playerX=" + playerX +
+                ", playerY=" + playerY +
+                ", playerSpeed=" + playerSpeed +
+                ", ui=" + ui +
+                ", listenerList=" + listenerList +
+                ", accessibleContext=" + accessibleContext +
+                '}';
     }
 }
