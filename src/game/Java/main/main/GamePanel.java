@@ -22,9 +22,9 @@ public class GamePanel extends JPanel implements Runnable {
     private final int maxScreenCols = 16;
     /** Maximum usable rows for the game. */
     private final int maxScreenRows = 12;
-    /** Width of the usable screen. (768px) */
+    /** Width of the usable screen. (768 px) */
     private final int screenWidth = tileSize * maxScreenCols;
-    /** Height of the usable screen. (576px) */
+    /** Height of the usable screen. (576 px) */
     private final int screenHeight = tileSize * maxScreenRows;
 
     /** Constant for converting time to seconds. */

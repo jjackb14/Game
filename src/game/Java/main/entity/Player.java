@@ -48,23 +48,21 @@ public class Player extends Entity {
      * Updates components on the screen.
      */
     public void update() {
-        if (keyH.isUpPressed() || keyH.isDownPressed() || keyH.isLeftPressed() || keyH.isRightPressed()) {
-            if (keyH.isUpPressed()) {
-                setDirection("up");
-                setY(getY() - getSpeed());
-            } else if (keyH.isDownPressed()) {
-                setDirection("down");
-                setY(getY() + getSpeed());
-            } else if (keyH.isLeftPressed()) {
-                setDirection("left");
-                setX(getX() - getSpeed());
-            } else if (keyH.isRightPressed()) {
-                setDirection("right");
-                setX(getX() + getSpeed());
-            }
-
-            entityUpdate();
+        if (keyH.isUpPressed()) {
+            setDirection("up");
+            setY(getY() - getSpeed());
+        } else if (keyH.isDownPressed()) {
+            setDirection("down");
+            setY(getY() + getSpeed());
+        } else if (keyH.isLeftPressed()) {
+            setDirection("left");
+            setX(getX() - getSpeed());
+        } else if (keyH.isRightPressed()) {
+            setDirection("right");
+            setX(getX() + getSpeed());
         }
+
+        entityUpdate();
     }
 
     /**
