@@ -41,13 +41,6 @@ public class GamePanel extends JPanel implements Runnable {
     /** An instance of the player in the game. */
     private Player player = new Player(this, keyH);
 
-    /** X coord of the player. */
-    private int playerX = 100;
-    /** Y coord of the player. */
-    private int playerY = 100;
-    /** Speed of the player. */
-    private int playerSpeed = 4;
-
     /**
      * Constructs a new main.main.GamePanel for use running the game.
      */
@@ -180,30 +173,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.gameThread = gameThread;
     }
 
-    public int getPlayerX() {
-        return playerX;
-    }
-
-    public void setPlayerX(int playerX) {
-        this.playerX = playerX;
-    }
-
-    public int getPlayerY() {
-        return playerY;
-    }
-
-    public void setPlayerY(int playerY) {
-        this.playerY = playerY;
-    }
-
-    public int getPlayerSpeed() {
-        return playerSpeed;
-    }
-
-    public void setPlayerSpeed(int playerSpeed) {
-        this.playerSpeed = playerSpeed;
-    }
-
     public Player getPlayer() {
         return player;
     }
@@ -217,17 +186,17 @@ public class GamePanel extends JPanel implements Runnable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GamePanel gamePanel = (GamePanel) o;
-        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getFPS() == gamePanel.getFPS() && getPlayerX() == gamePanel.getPlayerX() && getPlayerY() == gamePanel.getPlayerY() && getPlayerSpeed() == gamePanel.getPlayerSpeed() && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread());
+        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getFPS() == gamePanel.getFPS() && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread()) && Objects.equals(getPlayer(), gamePanel.getPlayer());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getFPS(), getKeyH(), getGameThread(), getPlayerX(), getPlayerY(), getPlayerSpeed());
+        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getFPS(), getKeyH(), getGameThread(), getPlayer());
     }
 
     @Override
     public String toString() {
-        return "main.main.GamePanel{" +
+        return "GamePanel{" +
                 "originalTileSize=" + originalTileSize +
                 ", scale=" + scale +
                 ", tileSize=" + tileSize +
@@ -238,9 +207,7 @@ public class GamePanel extends JPanel implements Runnable {
                 ", FPS=" + FPS +
                 ", keyH=" + keyH +
                 ", gameThread=" + gameThread +
-                ", playerX=" + playerX +
-                ", playerY=" + playerY +
-                ", playerSpeed=" + playerSpeed +
+                ", player=" + player +
                 ", ui=" + ui +
                 ", listenerList=" + listenerList +
                 ", accessibleContext=" + accessibleContext +
