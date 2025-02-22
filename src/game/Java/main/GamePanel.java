@@ -1,5 +1,7 @@
 package main;
 
+import entity.Player;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.Objects;
@@ -36,6 +38,8 @@ public class GamePanel extends JPanel implements Runnable {
     private KeyHandler keyH = new KeyHandler();
     /** The thread to run the game and maintain the clock. */
     private Thread gameThread;
+    /** An instance of the player in the game. */
+    private Player player = new Player(this, keyH);
 
     /** X coord of the player. */
     private int playerX = 100;
@@ -108,15 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
      * Updates components on the screen.
      */
     public void update() {
-        if (keyH.isUpPressed()) {
-            playerY -= playerSpeed;
-        } else if (keyH.isDownPressed()) {
-            playerY += playerSpeed;
-        } else if (keyH.isLeftPressed()) {
-            playerX -= playerSpeed;
-        } else if (keyH.isRightPressed()) {
-            playerX += playerSpeed;
-        }
+        player.update();
     }
 
     /**
@@ -127,8 +123,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.setColor(Color.white);
-        g2.fillRect(playerX, playerY, tileSize, tileSize);
+        player.draw(g2);
 
         g2.dispose();
     }
@@ -207,6 +202,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setPlayerSpeed(int playerSpeed) {
         this.playerSpeed = playerSpeed;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
     @Override
