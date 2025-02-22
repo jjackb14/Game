@@ -8,7 +8,7 @@ import java.util.Objects;
  */
 public class Entity {
     /** X and Y coordinates. */
-    private int x, y;
+    private int worldX, worldY;
     /** Speed of an entity. */
     private int speed;
     /** All the images to be used to make an entity. */
@@ -28,6 +28,9 @@ public class Entity {
         setSpriteNum(1);
     }
 
+    /**
+     * Updates the entity to generate animations.
+     */
     public void entityUpdate() {
         spriteCounter++;
         if (spriteCounter > 12) {
@@ -47,20 +50,12 @@ public class Entity {
         spriteCounter++;
     }
 
-    public int getX() {
-        return x;
+    public int getWorldY() {
+        return worldY;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
+    public void setWorldY(int worldY) {
+        this.worldY = worldY;
     }
 
     public int getSpeed() {
@@ -156,19 +151,19 @@ public class Entity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Entity entity = (Entity) o;
-        return getX() == entity.getX() && getY() == entity.getY() && getSpeed() == entity.getSpeed();
+        return getWorldX() == entity.getWorldY() && getWorldY() == entity.getWorldY() && getSpeed() == entity.getSpeed();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getX(), getY(), getSpeed());
+        return Objects.hash(getWorldX(), getWorldY(), getSpeed());
     }
 
     @Override
     public String toString() {
         return "Entity{" +
-                "x=" + x +
-                ", y=" + y +
+                "worldX=" + worldX +
+                ", worldY=" + worldY +
                 ", speed=" + speed +
                 '}';
     }
@@ -179,5 +174,13 @@ public class Entity {
 
     public void setSpriteNum(int spriteNum) {
         this.spriteNum = spriteNum;
+    }
+
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public void setWorldX(int worldX) {
+        this.worldX = worldX;
     }
 }

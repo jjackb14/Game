@@ -27,6 +27,15 @@ public class GamePanel extends JPanel implements Runnable {
     /** Height of the usable screen. (576 px) */
     private final int screenHeight = tileSize * maxScreenRows;
 
+    /** Maximum columns in the world. */
+    private final int maxWorldCol = 50;
+    /** Maximum rows in the world. */
+    private final int maxWorldRow = 50;
+    /** Width of the world. */
+    public final int worldWidth = tileSize * maxWorldCol;
+    /** Height of the world. */
+    public final int worldHeight = tileSize * maxWorldRow;
+
     /** Constant for converting time to seconds. */
     private static final int SECOND_CONVERSION = 1000000000;
     /** Constant for converting time to milliseconds from seconds. */
@@ -186,17 +195,41 @@ public class GamePanel extends JPanel implements Runnable {
         this.player = player;
     }
 
+    public int getMaxWorldCol() {
+        return maxWorldCol;
+    }
+
+    public int getMaxWorldRow() {
+        return maxWorldRow;
+    }
+
+    public int getWorldWidth() {
+        return worldWidth;
+    }
+
+    public int getWorldHeight() {
+        return worldHeight;
+    }
+
+    public TileManager getTileManager() {
+        return tileManager;
+    }
+
+    public void setTileManager(TileManager tileManager) {
+        this.tileManager = tileManager;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GamePanel gamePanel = (GamePanel) o;
-        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getFPS() == gamePanel.getFPS() && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread()) && Objects.equals(getPlayer(), gamePanel.getPlayer());
+        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getMaxWorldCol() == gamePanel.getMaxWorldCol() && getMaxWorldRow() == gamePanel.getMaxWorldRow() && getWorldWidth() == gamePanel.getWorldWidth() && getWorldHeight() == gamePanel.getWorldHeight() && getFPS() == gamePanel.getFPS() && Objects.equals(getTileManager(), gamePanel.getTileManager()) && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread()) && Objects.equals(getPlayer(), gamePanel.getPlayer());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getFPS(), getKeyH(), getGameThread(), getPlayer());
+        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getMaxWorldCol(), getMaxWorldRow(), getWorldWidth(), getWorldHeight(), getFPS(), getTileManager(), getKeyH(), getGameThread(), getPlayer());
     }
 
     @Override
@@ -209,7 +242,12 @@ public class GamePanel extends JPanel implements Runnable {
                 ", maxScreenRows=" + maxScreenRows +
                 ", screenWidth=" + screenWidth +
                 ", screenHeight=" + screenHeight +
+                ", maxWorldCol=" + maxWorldCol +
+                ", maxWorldRow=" + maxWorldRow +
+                ", worldWidth=" + worldWidth +
+                ", worldHeight=" + worldHeight +
                 ", FPS=" + FPS +
+                ", tileManager=" + tileManager +
                 ", keyH=" + keyH +
                 ", gameThread=" + gameThread +
                 ", player=" + player +

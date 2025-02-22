@@ -18,17 +18,31 @@ public class Player extends Entity {
     /** An instance of the KeyHandler. */
     private KeyHandler keyH;
 
+    /** X position of the screen. */
+    private final int screenX;
+    /** Y position of the screen. */
+    private final int screenY;
+
     /** The default player speed. */
     public static final int DEFAULT_SPEED = 4;
+    /** Default conversion factor for x. */
+    public static final int X_DEFAULT_CONVERSION = 23;
+    /** Default conversion factor for y. */
+    public static final int Y_DEFAULT_CONVERSION = 21;
+    /** The default direction of the player. */
+    public static final String DEFAULT_DIRECTION = "down";
 
     /**
      * Constructs a new Player object.
-     * @param gp Instance of gamepanel.
-     * @param keyH Instance of keyhandler.
+     * @param gp Instance of a game panel.
+     * @param keyH Instance of handler.
      */
     public Player(GamePanel gp, KeyHandler keyH) {
         setGp(gp);
         setKeyH(keyH);
+
+        screenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2);
+        screenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);
 
         setDefaultValues();
         getPlayerImage();
@@ -38,10 +52,10 @@ public class Player extends Entity {
      * Sets the default values for the player.
      */
     public void setDefaultValues() {
-        setX(100);
-        setY(100);
+        setWorldX(gp.getTileSize() * X_DEFAULT_CONVERSION);
+        setWorldY(gp.getTileSize() * Y_DEFAULT_CONVERSION);
         setSpeed(DEFAULT_SPEED);
-        setDirection("down");
+        setDirection(DEFAULT_DIRECTION);
     }
 
     /**
@@ -50,16 +64,16 @@ public class Player extends Entity {
     public void update() {
         if (keyH.isUpPressed()) {
             setDirection("up");
-            setY(getY() - getSpeed());
+            setWorldY(getWorldY() - getSpeed());
         } else if (keyH.isDownPressed()) {
             setDirection("down");
-            setY(getY() + getSpeed());
+            setWorldY(getWorldY() + getSpeed());
         } else if (keyH.isLeftPressed()) {
             setDirection("left");
-            setX(getX() - getSpeed());
+            setWorldX(getWorldX() - getSpeed());
         } else if (keyH.isRightPressed()) {
             setDirection("right");
-            setX(getX() + getSpeed());
+            setWorldX(getWorldX() + getSpeed());
         }
 
         entityUpdate();
@@ -71,7 +85,7 @@ public class Player extends Entity {
      */
     public void draw(Graphics2D g2) {
 //        g2.setColor(Color.white);
-//        g2.fillRect(getX(), getY(), gp.getTileSize(), gp.getTileSize());
+//        g2.fillRect(getX(), getWorldY(), gp.getTileSize(), gp.getTileSize());
 
         BufferedImage image = null;
 
@@ -109,7 +123,7 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, getX(), getY(),  gp.getTileSize() ,gp.getTileSize(), null);
+        g2.drawImage(image, screenX, screenY,  gp.getTileSize() ,gp.getTileSize(), null);
     }
 
     /**
@@ -145,5 +159,37 @@ public class Player extends Entity {
 
     public void setKeyH(KeyHandler keyH) {
         this.keyH = keyH;
+    }
+
+    public int getScreenX() {
+        return screenX;
+    }
+
+    public int getScreenY() {
+        return screenY;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Player player = (Player) o;
+        return getScreenX() == player.getScreenX() && getScreenY() == player.getScreenY() && Objects.equals(getGp(), player.getGp()) && Objects.equals(getKeyH(), player.getKeyH());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), getGp(), getKeyH(), getScreenX(), getScreenY());
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "gp=" + gp +
+                ", keyH=" + keyH +
+                ", screenX=" + screenX +
+                ", screenY=" + screenY +
+                '}';
     }
 }
