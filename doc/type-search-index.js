@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"entity","l":"Entity"},{"p":"main","l":"GamePanel"},{"p":"main","l":"KeyHandler"},{"p":"main","l":"Main"},{"p":"entity","l":"Player"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"main.entity","l":"Entity"},{"p":"main.main","l":"GamePanel"},{"p":"main.main","l":"KeyHandler"},{"p":"main.main","l":"Main"},{"p":"main.entity","l":"Player"}];updateSearchResults();
