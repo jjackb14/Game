@@ -32,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable {
     private static final int MILLI_CONVERSION = 1000000;
 
     /** FPS the game will run at. */
-    private int FPS = 120;
+    private int FPS = 60;
 
     /** A main.main.KeyHandler to handle the input from the keyboard. */
     private KeyHandler keyH = new KeyHandler();
@@ -46,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     /** Y coord of the player. */
     private int playerY = 100;
     /** Speed of the player. */
-    private int playerSpeed = 2;
+    private int playerSpeed = 4;
 
     /**
      * Constructs a new main.main.GamePanel for use running the game.

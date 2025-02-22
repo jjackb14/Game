@@ -16,9 +16,24 @@ public class Entity {
     /** The current direction of the entity. */
     private String direction;
     /** Counter of sprites in the game. */
-    private int spriteCounter = 0;
+    public int spriteCounter;
     /** Number of the sprite. */
-    private int spriteNum = 0;
+    public int spriteNum;
+
+    /**
+     * Creates a new Entity.
+     */
+    public Entity() {
+        setSpriteCounter(0);
+        setSpriteNum(1);
+    }
+
+    /**
+     * Allows for spriteCounter to be incremented without directly accessing the field.
+     */
+    public void incrementSpriteCounter() {
+        spriteCounter++;
+    }
 
     public int getX() {
         return x;
