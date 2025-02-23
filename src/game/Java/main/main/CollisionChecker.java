@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Checks the collisions of an entity with objects around it.
  */
-public class CollisionChecker {
+public final class CollisionChecker {
     /** The instance of GamePanel. */
     private GamePanel gp;
 

@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Objects;
 
-public class KeyHandler implements KeyListener {
+public final class KeyHandler implements KeyListener {
     /** Holds if up has been pressed. */
     private boolean upPressed;
     /** Holds if down has been pressed/ */

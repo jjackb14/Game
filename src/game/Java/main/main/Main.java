@@ -5,7 +5,7 @@ import javax.swing.*;
 /**
  * The main class to execute the core code necessary for the game to run.
  */
-public class Main {
+public final class Main {
     /**
      * The main method. Executes all the code.
      * @param args Command-line arguments.
@@ -27,6 +27,7 @@ public class Main {
 
         window.setVisible(true);
 
+        gamePanel.setupGame();
         gamePanel.startGameThread();
     }
 

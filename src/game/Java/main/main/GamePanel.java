@@ -1,16 +1,20 @@
 package main.main;
 
 import main.entity.Player;
+import main.object.SuperObject;
 import main.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Objects;
+
+import static main.tile.TileManager.*;
 
 /**
  * The physical UI of the game. Will handle tile sizes, resolution, etc.
  */
-public class GamePanel extends JPanel implements Runnable {
+public final class GamePanel extends JPanel implements Runnable {
     /** 16x16 tile. */
     private final int originalTileSize = 16;
     /** Scales up the pixels to fit the resolution of modern displays. */
@@ -52,8 +56,12 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread gameThread;
     /** An instance of the player in the game. */
     private Player player = new Player(this, keyH);
+    /** The instance of AssetSetter to help with managing in-game assets. */
+    private AssetSetter assetSetter = new AssetSetter(this);
     /** An instance of the CollisionChecker object. */
     private CollisionChecker cChecker = new CollisionChecker(this);
+    /** An ArrayList to hold all the objects. */
+    private ArrayList<SuperObject> obj = new ArrayList<>(DEFAULT_CAPACITY);
 
     /**
      * Constructs a new main.main.GamePanel for use running the game.
@@ -64,6 +72,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+    }
+
+    public void setupGame() {
+        assetSetter.setObject();
     }
 
     /**
@@ -130,7 +142,16 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
+        //---- TILES MUST BE DRAWN IN THIS ORDER ---- //
+
         tileManager.draw(g2);
+
+        //ArrayList improves performance since it won't iterate through the whole 10-array indexes.
+        for (int i = 0; i < obj.size(); i++) {
+            if (obj.get(i) != null) {
+                obj.get(i).draw(g2, this);
+            }
+        }
 
         player.draw(g2);
 
@@ -229,17 +250,33 @@ public class GamePanel extends JPanel implements Runnable {
         this.cChecker = cChecker;
     }
 
+    public AssetSetter getAssetSetter() {
+        return assetSetter;
+    }
+
+    public void setAssetSetter(AssetSetter assetSetter) {
+        this.assetSetter = assetSetter;
+    }
+
+    public ArrayList<SuperObject> getObj() {
+        return obj;
+    }
+
+    public void setObj(ArrayList<SuperObject> obj) {
+        this.obj = obj;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GamePanel gamePanel = (GamePanel) o;
-        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getMaxWorldCol() == gamePanel.getMaxWorldCol() && getMaxWorldRow() == gamePanel.getMaxWorldRow() && getWorldWidth() == gamePanel.getWorldWidth() && getWorldHeight() == gamePanel.getWorldHeight() && getFPS() == gamePanel.getFPS() && Objects.equals(getTileManager(), gamePanel.getTileManager()) && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread()) && Objects.equals(getPlayer(), gamePanel.getPlayer()) && Objects.equals(getcChecker(), gamePanel.getcChecker());
+        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getMaxWorldCol() == gamePanel.getMaxWorldCol() && getMaxWorldRow() == gamePanel.getMaxWorldRow() && getWorldWidth() == gamePanel.getWorldWidth() && getWorldHeight() == gamePanel.getWorldHeight() && getFPS() == gamePanel.getFPS() && Objects.equals(getTileManager(), gamePanel.getTileManager()) && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread()) && Objects.equals(getPlayer(), gamePanel.getPlayer()) && Objects.equals(getAssetSetter(), gamePanel.getAssetSetter()) && Objects.equals(getcChecker(), gamePanel.getcChecker()) && Objects.equals(getObj(), gamePanel.getObj());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getMaxWorldCol(), getMaxWorldRow(), getWorldWidth(), getWorldHeight(), getFPS(), getTileManager(), getKeyH(), getGameThread(), getPlayer(), getcChecker());
+        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getMaxWorldCol(), getMaxWorldRow(), getWorldWidth(), getWorldHeight(), getFPS(), getTileManager(), getKeyH(), getGameThread(), getPlayer(), getAssetSetter(), getcChecker(), getObj());
     }
 
     @Override
@@ -261,7 +298,9 @@ public class GamePanel extends JPanel implements Runnable {
                 ", keyH=" + keyH +
                 ", gameThread=" + gameThread +
                 ", player=" + player +
+                ", assetSetter=" + assetSetter +
                 ", cChecker=" + cChecker +
+                ", obj=" + obj +
                 ", ui=" + ui +
                 ", listenerList=" + listenerList +
                 ", accessibleContext=" + accessibleContext +

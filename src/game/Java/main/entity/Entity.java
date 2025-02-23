@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * Super class for all Entities in the game.
  */
-public class Entity {
+public abstract class Entity {
     /** X and Y coordinates. */
     private int worldX, worldY;
     /** Speed of an entity. */

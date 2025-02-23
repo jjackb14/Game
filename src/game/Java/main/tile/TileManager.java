@@ -15,7 +15,7 @@ import java.util.Objects;
 /**
  * Manages the tiles in the game.
  */
-public class TileManager {
+public final class TileManager {
     /** An instance of the game panel. */
     private GamePanel gp;
     /** An array to hold the tiles. */
