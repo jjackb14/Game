@@ -1,5 +1,6 @@
 package main.entity;
 
+import main.main.CollisionChecker;
 import main.main.GamePanel;
 import main.main.KeyHandler;
 
@@ -7,6 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -22,6 +24,9 @@ public class Player extends Entity {
     private final int screenX;
     /** Y position of the screen. */
     private final int screenY;
+
+    /** Keeps track of the number of keys the player has. */
+    private int hasKey;
 
     /** The default player speed. */
     public static final int DEFAULT_SPEED = 4;
@@ -40,6 +45,8 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyH) {
         setGp(gp);
         setKeyH(keyH);
+
+        setHasKey(0);
 
         screenX = gp.getScreenWidth() / 2 - (gp.getTileSize() / 2);
         screenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);
@@ -82,8 +89,13 @@ public class Player extends Entity {
             moving = true;
         }
 
+        //Check collisions with tiles
         setCollisionOn(false);
         gp.getcChecker().checkTile(this);
+
+        //Check collisions with objects
+        int objIndex = gp.getcChecker().checkObject(this, true);
+        pickUpObject(objIndex);
 
         if (moving && !isCollisionOn()) {
             switch (getDirection()) {
@@ -95,6 +107,50 @@ public class Player extends Entity {
         }
 
         entityUpdate();
+    }
+
+    /**
+     * Picks up an object from in the game.
+     * @param index The index of the object.
+     */
+    public void pickUpObject(int index) {
+        if (index != CollisionChecker.DEFAULT_INDEX) {
+            String objName = gp.getObj().get(index).getName();
+
+            switch (objName) {
+                case "Key":
+                    hasKey++;
+                    gp.getObj().set(index, null);
+                    if (checkObjRemoved(index)) {
+                        System.out.println("object picked up");
+                    }
+                    else {
+                        System.out.println("object could not be picked up");
+                    }
+                    System.out.println("keys: " + hasKey);
+                    break;
+                case "Door":
+                    if (hasKey > 0) {
+                        gp.getObj().set(index, null);
+                        hasKey--;
+                    }
+                    System.out.println("keys: " + hasKey);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Private helper method to ensure that an object has actually been removed.
+     * @param index The index of the specific object.
+     * @return true if it was removed and false if it was not removed.
+     */
+    private boolean checkObjRemoved(int index) {
+        ArrayList<main.object.Object> list = gp.getObj();
+        if (list.get(index) == null) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -187,18 +243,26 @@ public class Player extends Entity {
         return screenY;
     }
 
+    public int getHasKey() {
+        return hasKey;
+    }
+
+    public void setHasKey(int hasKey) {
+        this.hasKey = hasKey;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Player player = (Player) o;
-        return getScreenX() == player.getScreenX() && getScreenY() == player.getScreenY() && Objects.equals(getGp(), player.getGp()) && Objects.equals(getKeyH(), player.getKeyH());
+        return getScreenX() == player.getScreenX() && getScreenY() == player.getScreenY() && getHasKey() == player.getHasKey() && Objects.equals(getGp(), player.getGp()) && Objects.equals(getKeyH(), player.getKeyH());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getGp(), getKeyH(), getScreenX(), getScreenY());
+        return Objects.hash(super.hashCode(), getGp(), getKeyH(), getScreenX(), getScreenY(), getHasKey());
     }
 
     @Override
@@ -208,6 +272,7 @@ public class Player extends Entity {
                 ", keyH=" + keyH +
                 ", screenX=" + screenX +
                 ", screenY=" + screenY +
+                ", hasKey=" + hasKey +
                 '}';
     }
 }

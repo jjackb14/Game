@@ -23,6 +23,10 @@ public abstract class Object {
     /** Invisible rectangle to represent the collision area of an object. */
     private Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 
+    private int solidAreaDefaultX;
+
+    private int solidAreaDefaultY;
+
     /**
      * Constructs an Object and disables collisions by default.
      */
@@ -95,17 +99,32 @@ public abstract class Object {
         this.solidArea = solidArea;
     }
 
-    @Override
-    public boolean equals(java.lang.Object o) {
+    public int getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
+    }
+
+    public void setSolidAreaDefaultX(int solidAreaDefaultX) {
+        this.solidAreaDefaultX = solidAreaDefaultX;
+    }
+
+    public int getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
+
+    public void setSolidAreaDefaultY(int solidAreaDefaultY) {
+        this.solidAreaDefaultY = solidAreaDefaultY;
+    }
+
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Object that = (Object) o;
-        return isCollision() == that.isCollision() && getWorldX() == that.getWorldX() && getWorldY() == that.getWorldY() && Objects.equals(getImage(), that.getImage()) && Objects.equals(getName(), that.getName()) && Objects.equals(getSolidArea(), that.getSolidArea());
+        Object object = o;
+        return isCollision() == object.isCollision() && getWorldX() == object.getWorldX() && getWorldY() == object.getWorldY() && getSolidAreaDefaultX() == object.getSolidAreaDefaultX() && getSolidAreaDefaultY() == object.getSolidAreaDefaultY() && Objects.equals(getImage(), object.getImage()) && Objects.equals(getName(), object.getName()) && Objects.equals(getSolidArea(), object.getSolidArea());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getImage(), getName(), isCollision(), getWorldX(), getWorldY(), getSolidArea());
+        return Objects.hash(getImage(), getName(), isCollision(), getWorldX(), getWorldY(), getSolidArea(), getSolidAreaDefaultX(), getSolidAreaDefaultY());
     }
 
     @Override
@@ -117,6 +136,8 @@ public abstract class Object {
                 ", worldX=" + worldX +
                 ", worldY=" + worldY +
                 ", solidArea=" + solidArea +
+                ", solidAreaDefaultX=" + solidAreaDefaultX +
+                ", solidAreaDefaultY=" + solidAreaDefaultY +
                 '}';
     }
 }

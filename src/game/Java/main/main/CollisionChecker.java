@@ -10,6 +10,8 @@ import java.util.Objects;
 public final class CollisionChecker {
     /** The instance of GamePanel. */
     private GamePanel gp;
+    /** The default value for index. */
+    public static final int DEFAULT_INDEX = 999;
 
     /**
      * Constructs a new CollisionChecker object.
@@ -70,6 +72,81 @@ public final class CollisionChecker {
                 }
                 break;
         }
+    }
+
+    /**
+     * Checks the collisions of an Entity with an Object.
+     * @param entity The Entity to check.
+     * @param player If the Entity is a player or not a player.
+     * @return the index of the collision.
+     */
+    public int checkObject(Entity entity, boolean player) {
+        int index = DEFAULT_INDEX;
+
+        for (int i = 0; i < gp.getObj().size(); i++) {
+            if (gp.getObj().get(i) != null) {
+                //Get the position of the entity's solid area
+                entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
+                entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
+
+                //Get the position of the object's solid area
+                gp.getObj().get(i).getSolidArea().x = gp.getObj().get(i).getWorldX() + gp.getObj().get(i).getSolidArea().x;
+                gp.getObj().get(i).getSolidArea().y = gp.getObj().get(i).getWorldY() + gp.getObj().get(i).getSolidArea().y;
+
+                switch (entity.getDirection()) {
+                    case "up":
+                        entity.getSolidArea().y -= entity.getSpeed();
+                        if (entity.getSolidArea().intersects(gp.getObj().get(i).getSolidArea())) {
+                            if (gp.getObj().get(i).isCollision()) {
+                                entity.setCollisionOn(true);
+                            }
+                            if (player) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "down":
+                        entity.getSolidArea().y += entity.getSpeed();
+                        if (entity.getSolidArea().intersects(gp.getObj().get(i).getSolidArea())) {
+                            if (gp.getObj().get(i).isCollision()) {
+                                entity.setCollisionOn(true);
+                            }
+                            if (player) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "left":
+                        entity.getSolidArea().x -= entity.getSpeed();
+                        if (entity.getSolidArea().intersects(gp.getObj().get(i).getSolidArea())) {
+                            if (gp.getObj().get(i).isCollision()) {
+                                entity.setCollisionOn(true);
+                            }
+                            if (player) {
+                                index = i;
+                            }
+                        }
+                        break;
+                    case "right":
+                        entity.getSolidArea().x += entity.getSpeed();
+                        if (entity.getSolidArea().intersects(gp.getObj().get(i).getSolidArea())) {
+                            if (gp.getObj().get(i).isCollision()) {
+                                entity.setCollisionOn(true);
+                            }
+                            if (player) {
+                                index = i;
+                            }
+                        }
+                        break;
+                }
+                entity.getSolidArea().x = entity.getSolidAreaDefaultX();
+                entity.getSolidArea().y = entity.getSolidAreaDefaultY();
+                gp.getObj().get(i).getSolidArea().x = gp.getObj().get(i).getSolidAreaDefaultX();
+                gp.getObj().get(i).getSolidArea().y = gp.getObj().get(i).getSolidAreaDefaultY();
+            }
+        }
+
+        return index;
     }
 
     public GamePanel getGp() {
