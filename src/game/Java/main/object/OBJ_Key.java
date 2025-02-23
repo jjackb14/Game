@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * A class for the in-game Key object.
  */
-public class OBJ_Key extends SuperObject {
+public class OBJ_Key extends Object {
 
     /**
      * Constructs a new key object.

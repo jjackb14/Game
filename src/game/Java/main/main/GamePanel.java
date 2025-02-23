@@ -1,7 +1,6 @@
 package main.main;
 
 import main.entity.Player;
-import main.object.SuperObject;
 import main.tile.TileManager;
 
 import javax.swing.*;
@@ -61,7 +60,7 @@ public final class GamePanel extends JPanel implements Runnable {
     /** An instance of the CollisionChecker object. */
     private CollisionChecker cChecker = new CollisionChecker(this);
     /** An ArrayList to hold all the objects. */
-    private ArrayList<SuperObject> obj = new ArrayList<>(DEFAULT_CAPACITY);
+    private ArrayList<main.object.Object> obj = new ArrayList<>(DEFAULT_CAPACITY);
 
     /**
      * Constructs a new main.main.GamePanel for use running the game.
@@ -258,16 +257,16 @@ public final class GamePanel extends JPanel implements Runnable {
         this.assetSetter = assetSetter;
     }
 
-    public ArrayList<SuperObject> getObj() {
+    public ArrayList<main.object.Object> getObj() {
         return obj;
     }
 
-    public void setObj(ArrayList<SuperObject> obj) {
+    public void setObj(ArrayList<main.object.Object> obj) {
         this.obj = obj;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(java.lang.Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         GamePanel gamePanel = (GamePanel) o;

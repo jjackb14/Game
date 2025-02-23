@@ -3,7 +3,7 @@ package main.object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class OBJ_Door extends SuperObject {
+public class OBJ_Door extends Object {
 
     /**
      * Constructs a new door object.

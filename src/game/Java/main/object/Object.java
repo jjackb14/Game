@@ -9,7 +9,7 @@ import java.util.Objects;
 /**
  * Defines the basics for an Object in the game.
  */
-public abstract class SuperObject {
+public abstract class Object {
     /** The object's image. */
     private BufferedImage image;
     /** The name of the object. */
@@ -20,17 +20,19 @@ public abstract class SuperObject {
     private int worldX;
     /** Y coord of the object in the world. */
     private int worldY;
+    /** Invisible rectangle to represent the collision area of an object. */
+    private Rectangle solidArea = new Rectangle(0, 0, 48, 48);
 
     /**
-     * Constructs a SuperObject and disables collisions by default.
+     * Constructs an Object and disables collisions by default.
      */
-    public SuperObject() {
+    public Object() {
         this.collision = false;
     }
 
     /**
      * Draws an object on the screen.
-     * @param g2 The intsance of Graphics2D.
+     * @param g2 The instance of Graphics2D.
      * @param gp The instance of GamePanel.
      */
     public void draw(Graphics2D g2, GamePanel gp) {
@@ -85,27 +87,36 @@ public abstract class SuperObject {
         this.worldY = worldY;
     }
 
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
+
+    public void setSolidArea(Rectangle solidArea) {
+        this.solidArea = solidArea;
+    }
+
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(java.lang.Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SuperObject that = (SuperObject) o;
-        return isCollision() == that.isCollision() && getWorldX() == that.getWorldX() && getWorldY() == that.getWorldY() && Objects.equals(getImage(), that.getImage()) && Objects.equals(getName(), that.getName());
+        Object that = (Object) o;
+        return isCollision() == that.isCollision() && getWorldX() == that.getWorldX() && getWorldY() == that.getWorldY() && Objects.equals(getImage(), that.getImage()) && Objects.equals(getName(), that.getName()) && Objects.equals(getSolidArea(), that.getSolidArea());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getImage(), getName(), isCollision(), getWorldX(), getWorldY());
+        return Objects.hash(getImage(), getName(), isCollision(), getWorldX(), getWorldY(), getSolidArea());
     }
 
     @Override
     public String toString() {
-        return "SuperObject{" +
+        return "Object{" +
                 "image=" + image +
                 ", name='" + name + '\'' +
                 ", collision=" + collision +
                 ", worldX=" + worldX +
                 ", worldY=" + worldY +
+                ", solidArea=" + solidArea +
                 '}';
     }
 }

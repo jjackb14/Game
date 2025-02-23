@@ -3,7 +3,7 @@ package main.object;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class OBJ_Chest extends SuperObject {
+public class OBJ_Chest extends Object {
 
     /**
      * Constructs a new chest object.

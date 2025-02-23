@@ -22,6 +22,8 @@ public abstract class Entity {
     private int spriteNum;
     /** A solid rectangle to represent the collision area of an entity. */
     private Rectangle solidArea;
+    /** Default X and Y for a solid area. */
+    private int solidAreaDefaultX, solidAreaDefaultY;
     /** Flag for if collisions are on for an entity. */
     private boolean collisionOn;
 
@@ -183,17 +185,33 @@ public abstract class Entity {
         this.collisionOn = collisionOn;
     }
 
+    public int getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
+    }
+
+    public void setSolidAreaDefaultX(int solidAreaDefaultX) {
+        this.solidAreaDefaultX = solidAreaDefaultX;
+    }
+
+    public int getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
+
+    public void setSolidAreaDefaultY(int solidAreaDefaultY) {
+        this.solidAreaDefaultY = solidAreaDefaultY;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Entity entity = (Entity) o;
-        return getWorldX() == entity.getWorldX() && getWorldY() == entity.getWorldY() && getSpeed() == entity.getSpeed() && getSpriteCounter() == entity.getSpriteCounter() && getSpriteNum() == entity.getSpriteNum() && isCollisionOn() == entity.isCollisionOn() && Objects.equals(getUp1(), entity.getUp1()) && Objects.equals(getUp2(), entity.getUp2()) && Objects.equals(getDown1(), entity.getDown1()) && Objects.equals(getDown2(), entity.getDown2()) && Objects.equals(getLeft1(), entity.getLeft1()) && Objects.equals(getLeft2(), entity.getLeft2()) && Objects.equals(getRight1(), entity.getRight1()) && Objects.equals(getRight2(), entity.getRight2()) && Objects.equals(getDirection(), entity.getDirection()) && Objects.equals(getSolidArea(), entity.getSolidArea());
+        return getWorldX() == entity.getWorldX() && getWorldY() == entity.getWorldY() && getSpeed() == entity.getSpeed() && getSpriteCounter() == entity.getSpriteCounter() && getSpriteNum() == entity.getSpriteNum() && getSolidAreaDefaultX() == entity.getSolidAreaDefaultX() && getSolidAreaDefaultY() == entity.getSolidAreaDefaultY() && isCollisionOn() == entity.isCollisionOn() && Objects.equals(getUp1(), entity.getUp1()) && Objects.equals(getUp2(), entity.getUp2()) && Objects.equals(getDown1(), entity.getDown1()) && Objects.equals(getDown2(), entity.getDown2()) && Objects.equals(getLeft1(), entity.getLeft1()) && Objects.equals(getLeft2(), entity.getLeft2()) && Objects.equals(getRight1(), entity.getRight1()) && Objects.equals(getRight2(), entity.getRight2()) && Objects.equals(getDirection(), entity.getDirection()) && Objects.equals(getSolidArea(), entity.getSolidArea());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getWorldX(), getWorldY(), getSpeed(), getUp1(), getUp2(), getDown1(), getDown2(), getLeft1(), getLeft2(), getRight1(), getRight2(), getDirection(), getSpriteCounter(), getSpriteNum(), getSolidArea(), isCollisionOn());
+        return Objects.hash(getWorldX(), getWorldY(), getSpeed(), getUp1(), getUp2(), getDown1(), getDown2(), getLeft1(), getLeft2(), getRight1(), getRight2(), getDirection(), getSpriteCounter(), getSpriteNum(), getSolidArea(), getSolidAreaDefaultX(), getSolidAreaDefaultY(), isCollisionOn());
     }
 
     @Override
@@ -214,6 +232,8 @@ public abstract class Entity {
                 ", spriteCounter=" + spriteCounter +
                 ", spriteNum=" + spriteNum +
                 ", solidArea=" + solidArea +
+                ", soldiAreaDefaultX=" + solidAreaDefaultX +
+                ", solidAreaDefaultY=" + solidAreaDefaultY +
                 ", collisionOn=" + collisionOn +
                 '}';
     }

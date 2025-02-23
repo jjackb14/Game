@@ -45,6 +45,8 @@ public class Player extends Entity {
         screenY = gp.getScreenHeight() / 2 - (gp.getTileSize() / 2);
 
         setSolidArea(new Rectangle(8, 16, gp.getTileSize() - 16, gp.getTileSize() - 16));
+        setSolidAreaDefaultX(getSolidArea().x);
+        setSolidAreaDefaultY(getSolidArea().y);
 
         setDefaultValues();
         getPlayerImage();
