@@ -1,5 +1,6 @@
 package main.main;
 
+import main.object.OBJ_Boots;
 import main.object.OBJ_Chest;
 import main.object.OBJ_Door;
 import main.object.OBJ_Key;
@@ -59,6 +60,11 @@ public final class AssetSetter {
         gp.getObj().add(6, new OBJ_Chest());
         gp.getObj().get(6).setWorldX(10 * gp.getTileSize());
         gp.getObj().get(6).setWorldY(7 * gp.getTileSize());
+
+        //Boots 1
+        gp.getObj().add(7, new OBJ_Boots());
+        gp.getObj().get(7).setWorldX(37 * gp.getTileSize());
+        gp.getObj().get(7).setWorldY(42 * gp.getTileSize());
     }
 
     public GamePanel getGp() {
