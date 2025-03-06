@@ -120,23 +120,20 @@ public class Player extends Entity {
             switch (objName) {
                 case "Key":
                     hasKey++;
+                    gp.playSoundEffect(1);
                     gp.getObj().set(index, null);
-                    if (checkObjRemoved(index)) {
-                        System.out.println("object picked up");
-                    }
-                    else {
-                        System.out.println("object could not be picked up");
-                    }
                     System.out.println("keys: " + hasKey);
                     break;
                 case "Door":
                     if (hasKey > 0) {
+                        gp.playSoundEffect(3);
                         gp.getObj().set(index, null);
                         hasKey--;
                     }
                     System.out.println("keys: " + hasKey);
                     break;
                 case "Boots":
+                    gp.playSoundEffect(2);
                     setSpeed(getSpeed() + 1);
                     gp.getObj().set(index, null);
                     break;

@@ -49,8 +49,10 @@ public final class GamePanel extends JPanel implements Runnable {
 
     /** An instance of the tile manager. */
     TileManager tileManager = new TileManager(this);
-    /** A main.main.KeyHandler to handle the input from the keyboard. */
+    /** A KeyHandler to handle the input from the keyboard. */
     private KeyHandler keyH = new KeyHandler();
+    /** An instance of the Sound class to manage sounds. */
+    private Sound sound = new Sound();
     /** The thread to run the game and maintain the clock. */
     private Thread gameThread;
     /** An instance of the player in the game. */
@@ -63,7 +65,7 @@ public final class GamePanel extends JPanel implements Runnable {
     private ArrayList<main.object.Object> obj = new ArrayList<>(DEFAULT_CAPACITY);
 
     /**
-     * Constructs a new main.main.GamePanel for use running the game.
+     * Constructs a new GamePanel for use running the game.
      */
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -75,6 +77,7 @@ public final class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         assetSetter.setObject();
+        playMusic(0);
     }
 
     /**
@@ -154,6 +157,35 @@ public final class GamePanel extends JPanel implements Runnable {
         player.draw(g2);
 
         g2.dispose();
+    }
+
+    /**
+     * Plays music during the game.
+     * Delegates its functionality to the {@link Sound} class's methods but simplifies usage for me.
+     * @param idx the index of the desired sound in the Sound ArrayList.
+     */
+    public void playMusic(int idx) {
+        sound.setFile(idx);
+        sound.play();
+        sound.loop();
+    }
+
+    /**
+     * Stops the currently playing music.
+     * Delegates its functionality to {@link Sound}'s stop() method.
+     */
+    public void stopMusic() {
+        sound.stop();
+    }
+
+    /**
+     * Plays sound effects during the game.
+     * Delegates its functionality to the {@link Sound} class's methods.
+     * @param idx the index of the desired sound in the Sound ArrayList.
+     */
+    public void playSoundEffect(int idx) {
+        sound.setFile(idx);
+        sound.play();
     }
 
     public int getOriginalTileSize() {
@@ -264,17 +296,24 @@ public final class GamePanel extends JPanel implements Runnable {
         this.obj = obj;
     }
 
+    public Sound getSound() {
+        return sound;
+    }
+
+    public void setSound(Sound sound) {
+        this.sound = sound;
+    }
+
     @Override
-    public boolean equals(java.lang.Object o) {
-        if (this == o) return true;
+    public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         GamePanel gamePanel = (GamePanel) o;
-        return getOriginalTileSize() == gamePanel.getOriginalTileSize() && getScale() == gamePanel.getScale() && getTileSize() == gamePanel.getTileSize() && getMaxScreenCols() == gamePanel.getMaxScreenCols() && getMaxScreenRows() == gamePanel.getMaxScreenRows() && getScreenWidth() == gamePanel.getScreenWidth() && getScreenHeight() == gamePanel.getScreenHeight() && getMaxWorldCol() == gamePanel.getMaxWorldCol() && getMaxWorldRow() == gamePanel.getMaxWorldRow() && getWorldWidth() == gamePanel.getWorldWidth() && getWorldHeight() == gamePanel.getWorldHeight() && getFPS() == gamePanel.getFPS() && Objects.equals(getTileManager(), gamePanel.getTileManager()) && Objects.equals(getKeyH(), gamePanel.getKeyH()) && Objects.equals(getGameThread(), gamePanel.getGameThread()) && Objects.equals(getPlayer(), gamePanel.getPlayer()) && Objects.equals(getAssetSetter(), gamePanel.getAssetSetter()) && Objects.equals(getcChecker(), gamePanel.getcChecker()) && Objects.equals(getObj(), gamePanel.getObj());
+        return originalTileSize == gamePanel.originalTileSize && scale == gamePanel.scale && tileSize == gamePanel.tileSize && maxScreenCols == gamePanel.maxScreenCols && maxScreenRows == gamePanel.maxScreenRows && screenWidth == gamePanel.screenWidth && screenHeight == gamePanel.screenHeight && maxWorldCol == gamePanel.maxWorldCol && maxWorldRow == gamePanel.maxWorldRow && worldWidth == gamePanel.worldWidth && worldHeight == gamePanel.worldHeight && FPS == gamePanel.FPS && Objects.equals(tileManager, gamePanel.tileManager) && Objects.equals(keyH, gamePanel.keyH) && Objects.equals(sound, gamePanel.sound) && Objects.equals(gameThread, gamePanel.gameThread) && Objects.equals(player, gamePanel.player) && Objects.equals(assetSetter, gamePanel.assetSetter) && Objects.equals(cChecker, gamePanel.cChecker) && Objects.equals(obj, gamePanel.obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getOriginalTileSize(), getScale(), getTileSize(), getMaxScreenCols(), getMaxScreenRows(), getScreenWidth(), getScreenHeight(), getMaxWorldCol(), getMaxWorldRow(), getWorldWidth(), getWorldHeight(), getFPS(), getTileManager(), getKeyH(), getGameThread(), getPlayer(), getAssetSetter(), getcChecker(), getObj());
+        return Objects.hash(originalTileSize, scale, tileSize, maxScreenCols, maxScreenRows, screenWidth, screenHeight, maxWorldCol, maxWorldRow, worldWidth, worldHeight, FPS, tileManager, keyH, sound, gameThread, player, assetSetter, cChecker, obj);
     }
 
     @Override
@@ -294,14 +333,12 @@ public final class GamePanel extends JPanel implements Runnable {
                 ", FPS=" + FPS +
                 ", tileManager=" + tileManager +
                 ", keyH=" + keyH +
+                ", sound=" + sound +
                 ", gameThread=" + gameThread +
                 ", player=" + player +
                 ", assetSetter=" + assetSetter +
                 ", cChecker=" + cChecker +
                 ", obj=" + obj +
-                ", ui=" + ui +
-                ", listenerList=" + listenerList +
-                ", accessibleContext=" + accessibleContext +
                 '}';
     }
 }
