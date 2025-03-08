@@ -1,4 +1,4 @@
-main.entity
-main.main
-main.object
-main.tile
+core.entity
+core.main
+core.object
+core.tile

@@ -1,8 +1,8 @@
-package main.entity;
+package core.entity;
 
-import main.main.CollisionChecker;
-import main.main.GamePanel;
-import main.main.KeyHandler;
+import core.main.CollisionChecker;
+import core.main.GamePanel;
+import core.main.KeyHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -147,7 +147,7 @@ public class Player extends Entity {
      * @return true if it was removed and false if it was not removed.
      */
     private boolean checkObjRemoved(int index) {
-        ArrayList<main.object.Object> list = gp.getObj();
+        ArrayList<core.object.Object> list = gp.getObj();
         if (list.get(index) == null) {
             return true;
         }

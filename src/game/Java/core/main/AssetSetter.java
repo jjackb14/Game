@@ -1,9 +1,9 @@
-package main.main;
+package core.main;
 
-import main.object.OBJ_Boots;
-import main.object.OBJ_Chest;
-import main.object.OBJ_Door;
-import main.object.OBJ_Key;
+import core.object.OBJ_Boots;
+import core.object.OBJ_Chest;
+import core.object.OBJ_Door;
+import core.object.OBJ_Key;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package main.main;
+package core.main;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * A class to manage the sounds in the game.
  */
-public class Sound {
+public final class Sound {
 
     /** The audio clip to play. */
     private Clip clip;

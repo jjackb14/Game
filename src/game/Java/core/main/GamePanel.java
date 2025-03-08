@@ -1,14 +1,14 @@
-package main.main;
+package core.main;
 
-import main.entity.Player;
-import main.tile.TileManager;
+import core.entity.Player;
+import core.tile.TileManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static main.tile.TileManager.*;
+import static core.tile.TileManager.*;
 
 /**
  * The physical UI of the game. Will handle tile sizes, resolution, etc.
@@ -51,8 +51,10 @@ public final class GamePanel extends JPanel implements Runnable {
     TileManager tileManager = new TileManager(this);
     /** A KeyHandler to handle the input from the keyboard. */
     private KeyHandler keyH = new KeyHandler();
-    /** An instance of the Sound class to manage sounds. */
-    private Sound sound = new Sound();
+    /** An instance of the Sound class to manage the music in the game. */
+    private Sound music = new Sound();
+    /** An instance of the Sound class to manage the sounds effects in the game. */
+    private Sound soundEffect = new Sound();
     /** The thread to run the game and maintain the clock. */
     private Thread gameThread;
     /** An instance of the player in the game. */
@@ -62,7 +64,7 @@ public final class GamePanel extends JPanel implements Runnable {
     /** An instance of the CollisionChecker object. */
     private CollisionChecker cChecker = new CollisionChecker(this);
     /** An ArrayList to hold all the objects. */
-    private ArrayList<main.object.Object> obj = new ArrayList<>(DEFAULT_CAPACITY);
+    private ArrayList<core.object.Object> obj = new ArrayList<>(DEFAULT_CAPACITY);
 
     /**
      * Constructs a new GamePanel for use running the game.
@@ -165,9 +167,9 @@ public final class GamePanel extends JPanel implements Runnable {
      * @param idx the index of the desired sound in the Sound ArrayList.
      */
     public void playMusic(int idx) {
-        sound.setFile(idx);
-        sound.play();
-        sound.loop();
+        music.setFile(idx);
+        music.play();
+        music.loop();
     }
 
     /**
@@ -175,7 +177,7 @@ public final class GamePanel extends JPanel implements Runnable {
      * Delegates its functionality to {@link Sound}'s stop() method.
      */
     public void stopMusic() {
-        sound.stop();
+        music.stop();
     }
 
     /**
@@ -184,8 +186,8 @@ public final class GamePanel extends JPanel implements Runnable {
      * @param idx the index of the desired sound in the Sound ArrayList.
      */
     public void playSoundEffect(int idx) {
-        sound.setFile(idx);
-        sound.play();
+        soundEffect.setFile(idx);
+        soundEffect.play();
     }
 
     public int getOriginalTileSize() {
@@ -288,32 +290,40 @@ public final class GamePanel extends JPanel implements Runnable {
         this.assetSetter = assetSetter;
     }
 
-    public ArrayList<main.object.Object> getObj() {
+    public ArrayList<core.object.Object> getObj() {
         return obj;
     }
 
-    public void setObj(ArrayList<main.object.Object> obj) {
+    public void setObj(ArrayList<core.object.Object> obj) {
         this.obj = obj;
     }
 
-    public Sound getSound() {
-        return sound;
+    public Sound getMusic() {
+        return music;
     }
 
-    public void setSound(Sound sound) {
-        this.sound = sound;
+    public void setMusic(Sound music) {
+        this.music = music;
+    }
+
+    public Sound getSoundEffect() {
+        return soundEffect;
+    }
+
+    public void setSoundEffect(Sound soundEffect) {
+        this.soundEffect = soundEffect;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         GamePanel gamePanel = (GamePanel) o;
-        return originalTileSize == gamePanel.originalTileSize && scale == gamePanel.scale && tileSize == gamePanel.tileSize && maxScreenCols == gamePanel.maxScreenCols && maxScreenRows == gamePanel.maxScreenRows && screenWidth == gamePanel.screenWidth && screenHeight == gamePanel.screenHeight && maxWorldCol == gamePanel.maxWorldCol && maxWorldRow == gamePanel.maxWorldRow && worldWidth == gamePanel.worldWidth && worldHeight == gamePanel.worldHeight && FPS == gamePanel.FPS && Objects.equals(tileManager, gamePanel.tileManager) && Objects.equals(keyH, gamePanel.keyH) && Objects.equals(sound, gamePanel.sound) && Objects.equals(gameThread, gamePanel.gameThread) && Objects.equals(player, gamePanel.player) && Objects.equals(assetSetter, gamePanel.assetSetter) && Objects.equals(cChecker, gamePanel.cChecker) && Objects.equals(obj, gamePanel.obj);
+        return originalTileSize == gamePanel.originalTileSize && scale == gamePanel.scale && tileSize == gamePanel.tileSize && maxScreenCols == gamePanel.maxScreenCols && maxScreenRows == gamePanel.maxScreenRows && screenWidth == gamePanel.screenWidth && screenHeight == gamePanel.screenHeight && maxWorldCol == gamePanel.maxWorldCol && maxWorldRow == gamePanel.maxWorldRow && worldWidth == gamePanel.worldWidth && worldHeight == gamePanel.worldHeight && FPS == gamePanel.FPS && Objects.equals(tileManager, gamePanel.tileManager) && Objects.equals(keyH, gamePanel.keyH) && Objects.equals(music, gamePanel.music) && Objects.equals(soundEffect, gamePanel.soundEffect) && Objects.equals(gameThread, gamePanel.gameThread) && Objects.equals(player, gamePanel.player) && Objects.equals(assetSetter, gamePanel.assetSetter) && Objects.equals(cChecker, gamePanel.cChecker) && Objects.equals(obj, gamePanel.obj);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(originalTileSize, scale, tileSize, maxScreenCols, maxScreenRows, screenWidth, screenHeight, maxWorldCol, maxWorldRow, worldWidth, worldHeight, FPS, tileManager, keyH, sound, gameThread, player, assetSetter, cChecker, obj);
+        return Objects.hash(originalTileSize, scale, tileSize, maxScreenCols, maxScreenRows, screenWidth, screenHeight, maxWorldCol, maxWorldRow, worldWidth, worldHeight, FPS, tileManager, keyH, music, soundEffect, gameThread, player, assetSetter, cChecker, obj);
     }
 
     @Override
@@ -333,7 +343,8 @@ public final class GamePanel extends JPanel implements Runnable {
                 ", FPS=" + FPS +
                 ", tileManager=" + tileManager +
                 ", keyH=" + keyH +
-                ", sound=" + sound +
+                ", music=" + music +
+                ", soundEffect=" + soundEffect +
                 ", gameThread=" + gameThread +
                 ", player=" + player +
                 ", assetSetter=" + assetSetter +

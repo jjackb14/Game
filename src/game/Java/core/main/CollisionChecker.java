@@ -1,6 +1,6 @@
-package main.main;
+package core.main;
 
-import main.entity.Entity;
+import core.entity.Entity;
 
 import java.util.Objects;
 
