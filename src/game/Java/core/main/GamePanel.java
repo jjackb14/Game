@@ -66,6 +66,9 @@ public final class GamePanel extends JPanel implements Runnable {
     /** An ArrayList to hold all the objects. */
     private ArrayList<core.object.Object> obj = new ArrayList<>(DEFAULT_CAPACITY);
 
+    /** An instance of the UI class to manage the on-screen ui in the game. */
+    private UI ui = new UI(this);
+
     /**
      * Constructs a new GamePanel for use running the game.
      */
@@ -157,6 +160,8 @@ public final class GamePanel extends JPanel implements Runnable {
         }
 
         player.draw(g2);
+
+        ui.draw(g2);
 
         g2.dispose();
     }
@@ -314,16 +319,24 @@ public final class GamePanel extends JPanel implements Runnable {
         this.soundEffect = soundEffect;
     }
 
+    public UI getUi() {
+        return ui;
+    }
+
+    public void setUi(UI ui) {
+        this.ui = ui;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         GamePanel gamePanel = (GamePanel) o;
-        return originalTileSize == gamePanel.originalTileSize && scale == gamePanel.scale && tileSize == gamePanel.tileSize && maxScreenCols == gamePanel.maxScreenCols && maxScreenRows == gamePanel.maxScreenRows && screenWidth == gamePanel.screenWidth && screenHeight == gamePanel.screenHeight && maxWorldCol == gamePanel.maxWorldCol && maxWorldRow == gamePanel.maxWorldRow && worldWidth == gamePanel.worldWidth && worldHeight == gamePanel.worldHeight && FPS == gamePanel.FPS && Objects.equals(tileManager, gamePanel.tileManager) && Objects.equals(keyH, gamePanel.keyH) && Objects.equals(music, gamePanel.music) && Objects.equals(soundEffect, gamePanel.soundEffect) && Objects.equals(gameThread, gamePanel.gameThread) && Objects.equals(player, gamePanel.player) && Objects.equals(assetSetter, gamePanel.assetSetter) && Objects.equals(cChecker, gamePanel.cChecker) && Objects.equals(obj, gamePanel.obj);
+        return originalTileSize == gamePanel.originalTileSize && scale == gamePanel.scale && tileSize == gamePanel.tileSize && maxScreenCols == gamePanel.maxScreenCols && maxScreenRows == gamePanel.maxScreenRows && screenWidth == gamePanel.screenWidth && screenHeight == gamePanel.screenHeight && maxWorldCol == gamePanel.maxWorldCol && maxWorldRow == gamePanel.maxWorldRow && worldWidth == gamePanel.worldWidth && worldHeight == gamePanel.worldHeight && FPS == gamePanel.FPS && Objects.equals(tileManager, gamePanel.tileManager) && Objects.equals(keyH, gamePanel.keyH) && Objects.equals(music, gamePanel.music) && Objects.equals(soundEffect, gamePanel.soundEffect) && Objects.equals(gameThread, gamePanel.gameThread) && Objects.equals(player, gamePanel.player) && Objects.equals(assetSetter, gamePanel.assetSetter) && Objects.equals(cChecker, gamePanel.cChecker) && Objects.equals(obj, gamePanel.obj) && Objects.equals(ui, gamePanel.ui);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(originalTileSize, scale, tileSize, maxScreenCols, maxScreenRows, screenWidth, screenHeight, maxWorldCol, maxWorldRow, worldWidth, worldHeight, FPS, tileManager, keyH, music, soundEffect, gameThread, player, assetSetter, cChecker, obj);
+        return Objects.hash(originalTileSize, scale, tileSize, maxScreenCols, maxScreenRows, screenWidth, screenHeight, maxWorldCol, maxWorldRow, worldWidth, worldHeight, FPS, tileManager, keyH, music, soundEffect, gameThread, player, assetSetter, cChecker, obj, ui);
     }
 
     @Override
@@ -350,6 +363,7 @@ public final class GamePanel extends JPanel implements Runnable {
                 ", assetSetter=" + assetSetter +
                 ", cChecker=" + cChecker +
                 ", obj=" + obj +
+                ", ui=" + ui +
                 '}';
     }
 }
